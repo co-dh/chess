@@ -1,9 +1,9 @@
 
-# chess puzzle solver in relational mathematics.
+# Chess Puzzle Solver in Relational Mathematics.
 
 \l rel.k
 
-## FEN chess notation display.
+## FEN chess notation display
 
  There are 6 kind of pieces: King,Queen, Bishop,kNight,Rook,Pawn.
  The Forsyth-Edwards Notation use lower case letter for black pieces, and upper case for white pieces.
