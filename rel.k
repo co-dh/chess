@@ -3,8 +3,9 @@
 com:{x:|/'y@&:'x; c:#:'x; w:&0=c; @[x;w;:;(#w)#,(|/c)#0b]}; 
 lres:{~com[+x;~y]}; Syq:{lres[x;y]&lres[~x;~y]}; Id:{x^(x*x) #1b,x#0b};  univ:{|/|/~com[+x;x]>Id@#x}; 
 univ:{&/2>+/'x}; inj:{univ@+x}; tot:{&/|/'x}; surj:{tot@+x}; mapping:{tot[x]&univ[x]}; bij:{inj[x]&surj[x]}; 
-Top:{x#,y#1b};  bot:{x#,y#0b}; Vec:{&/=/'x}; reflexive: {&/x ./: i,'i:!#x}; dom:{com[x; Top[#*x;#*x]]}; cod:{dom@+x};
+top:{x[0]#,x[1]#1b};  bot:{x[0]#,x[1]#0b}; vec:{&/=/'x}; reflexive: {&/x ./: i,'i:!#x}; dom:{com[x; top 2##*x]}; cod:{dom@+x};
 same:{com[x;+x]};
+
 /~~~
 
 /
@@ -16,15 +17,14 @@ same:{com[x;+x]};
  x:(111bb;0100b;1111b;0101b)
  com2:{y (?,/@)/:x};/dictinary composition, very slow, can't finish 10kX10k
 
- randm: {x[0]#,`boolean$x[1]?2}
  x:randm 10000 10000
  y:randm 10000 10000
 \t com[x;y]
 
- com0:{x (|/&)/:\: +y}; /naive. In Shakti, it 2 times slower than com, in Q 4, 6 times slower. Also shakti treat |/() to correct 1...111b
- \t com0[x;y]
+com0:{x (|/&)/:\: +y}; /naive. In Shakti, it 2 times slower than com, in Q 4, 6 times slower. Also shakti treat |/() to correct 1...111b
+\t com0[x;y]
 
- x: randm 10 10
- y: randm 10 10
+show x: .r.Rand 2 3
+show y: .r.Rand 3 4
  com[x;y]
 
