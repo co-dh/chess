@@ -1,7 +1,4 @@
-chess.md: chess.q 
-	qnote chess.q | sed 's/q)//' | tail +4 > chess.md
-	cp chess.md ../
-fen.txt:
-	fswatch -o fen.txt | xargs -n1 -I{} cat fen.txt
+%.md: %.q ~/qnote/qnote 
+	qnote $<| sed 's/q)~~~q/~~~q\nq)/'|sed 's/q)~~~/~~~\n/'| tail +4|tr -d '\r' > $@
 watch:
-	fswatch -o chess.q| xargs -n1 -I{} make chess.md 
+	fswatch *.q|xargs -n1 basename|sed -u 's/.q/.md/'|xargs -n1 make

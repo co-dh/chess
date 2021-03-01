@@ -1,7 +1,7 @@
+/ relation mathematics in Q with some infix function like composition(I), In, LRes 
 \d .r
 Id:{x cut(x*x)#1b,x#0b}; Top:{x[0]#enlist x[1]#1b};  Bot:{x[0]#enlist x[1]#0b};
-/composition
-.q.I:{$[
+.q.I:{$[ /Infix relation composition. t: Top, b: Bot, i:Id, I: not Id
       x~`t               ; .z.s[Top 2#count y;y]                
     ; x~`b               ; .z.s[Bot 2#count y;y]                 
     ; y~`t               ; .z.s[x            ;Top 2#count x 0]  
@@ -14,7 +14,7 @@ Id:{x cut(x*x)#1b,x#0b}; Top:{x[0]#enlist x[1]#1b};  Bot:{x[0]#enlist x[1]#0b};
     ]};
 Shape:{count each (x; x 0)};
 
-.q.In:{$[
+.q.In:{$[ /is relation x included in y?
       x~`i; .z.s[    Id count y; y]
     ; x~`I; .z.s[not Id count y; y]
     ; y~`i; .z.s[x;     Id count x]
@@ -43,6 +43,8 @@ Preorder:Refl And Trans; StrictOrder: Trans And Asym; Order: StrictOrder And Ref
 Homo:{count[x]=count x 0};
 Equi: Homo And Refl And Trans And Sym;
 Difunct:{x~x I flip[x] I x};
+
+.q.Same:{x I flip x};
 
 /
 \d .
