@@ -58,7 +58,8 @@ It would be nice to show above output as a mMarkdown table.
     mdBoard: {-1@"\n"; -1@chessHeader,chessRow each x; -1@"\n";} ; 
 ~~~
 
-Some css for chess board. It's not working on github, but works in Chrome plugin.
+Some css for chess board. It's not working on github, but works in Chrome Markdown viewer plugin.
+
 <style type="text/css" rel="stylesheet">
 .markdown-body table td { 
     font-size: 2.5em; 
@@ -127,8 +128,8 @@ So we need a mapping from position to row number, and column number
 diff function create a table t of count[x] by count[x], with t[i;j]: x[i] - x[j]
 
 ~~~q
-    diff
-    diff 1 2 3 4
+    show diff
+    show diff 1 2 3 4
 ~~~
 
 `diff pos2Row` gives us a 64X64 table t, with t[i;j] stores the row difference of position i, and j
@@ -209,7 +210,7 @@ To solve the puzzle, we need to find a piece that can attack ememy's king and al
     show B:where bd = `B /`B's positions are at e5(28), c4(34)
     ma: move[`B] I attack[`B] /White Bishop can attack these positions in 2 steps.
     sh first ma[B] /Be5 can attack these positions in 2 steps
-    all each k <=/: ma[B]  /and it covers all kings legal positions.
-    where all each k<=/:ma[B] /first white bishop(e5) can attack all k's position in 2 steps.
+    show all each k <=/: ma[B]  /and it covers all kings legal positions.
+    show where all each k<=/:ma[B] /first white bishop(e5) can attack all k's position in 2 steps.
     / we ignored that when bishop e5 moves, it's need to be removed from the orinal attacked position.
 ~~~

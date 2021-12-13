@@ -1,7 +1,4 @@
-
-q)\l chess2.q
 ~~~q
-q)
 \l rel.q
 map: (raze string 1+til 8)!(1+til 8)#\:" " ; / number 1 to 8 represent spaces.
 map["/"]: "\n"                             ; / / to separate each row.
@@ -35,7 +32,6 @@ attack[`B]: attack[`b]: Same[Pos2Up] | Same Pos2Down;
 
 /anything below \ will be ignored by q
 
-\
 ~~~
 # Chess Puzzle Solver in Relational Mathematics.
 
@@ -47,7 +43,7 @@ The Forsyth-Edwards Notation use lower case letter for black pieces, and upper c
 
 ~~~q
 fen: "5b2/p3n2r/3R2pp/k1p1Bp2/2B1p3/1P6/P1P2PPP/2K5" ; / an example
-q)-1@bd: board fen;
+-1@bd: board fen;
      b  
 p   n  r
    R  pp
@@ -58,24 +54,23 @@ P P  PPP
   K     
 ~~~
 
-
 It would be nice to show above output as a mMarkdown table.
 
 ### Show Chess Board as Markdown Table
 ~~~q
-mdRow: {"|",("|" sv x),"|"} ; / render a row as Markdown table row.
-q)print: {-1@x;} /print string with line return
-q)print first chessHeader: mdRow each enlist@'' ("ABCDEFGH"; 8#"-") /chess table header in Markdown
+    mdRow: {"|",("|" sv x),"|"} ; / render a row as Markdown table row.
+    print: {-1@x;} /print string with line return
+    print first chessHeader: mdRow each enlist@'' ("ABCDEFGH"; 8#"-") /chess table header in Markdown
 |A|B|C|D|E|F|G|H|
-q)chessRow: {mdRow raze unicode enlist each x } ; / display row as Markdown
-q)-1@chessRow bd[2];
+    chessRow: {mdRow raze unicode enlist each x } ; / display row as Markdown
+    -1@chessRow bd[2];
 | | | |♖| | |♟|♟|
-q)/ generate Markdown table for a chess board. x: str[]
-q)mdBoard: {-1@"\n"; -1@chessHeader,chessRow each x; -1@"\n";} ;
+    / generate Markdown table for a chess board. x: str[]
+    mdBoard: {-1@"\n"; -1@chessHeader,chessRow each x; -1@"\n";} ; 
 ~~~
 
+Some css for chess board. It's not working on github, but works in Chrome Markdown viewer plugin.
 
-Some css for chess board. It's not working on github, but works in Chrome plugin.
 <style type="text/css" rel="stylesheet">
 .markdown-body table td { 
     font-size: 2.5em; 
@@ -101,7 +96,6 @@ Some css for chess board. It's not working on github, but works in Chrome plugin
 
 </style>
 
-mdBoard board fen
 
 
 |A|B|C|D|E|F|G|H|
@@ -116,7 +110,7 @@ mdBoard board fen
 | | |♔| | | | | |
 
 
-q)
+
 ## What Positions will be attacked by a chess piece?
 
 ### Rook attacks in row and column.
@@ -131,8 +125,8 @@ find out positions that are on the same row/column.
 
 
 ~~~q
-sh: {show 8 cut x;}; Show: show;
-q)sh Pos2Row          / The relation from position to row. The first position map to first row(100000000b)
+    sh: {show 8 cut x;}; Show: show; 
+    sh Pos2Row          / The relation from position to row. The first position map to first row(100000000b)
 10000000b 10000000b 10000000b 10000000b 10000000b 10000000b 10000000b 10000000b
 01000000b 01000000b 01000000b 01000000b 01000000b 01000000b 01000000b 01000000b
 00100000b 00100000b 00100000b 00100000b 00100000b 00100000b 00100000b 00100000b
@@ -141,7 +135,7 @@ q)sh Pos2Row          / The relation from position to row. The first position ma
 00000100b 00000100b 00000100b 00000100b 00000100b 00000100b 00000100b 00000100b
 00000010b 00000010b 00000010b 00000010b 00000010b 00000010b 00000010b 00000010b
 00000001b 00000001b 00000001b 00000001b 00000001b 00000001b 00000001b 00000001b
-q)sh Pos2Col          /   and to column.
+    sh Pos2Col          /   and to column.
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
@@ -150,7 +144,7 @@ q)sh Pos2Col          /   and to column.
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
 10000000b 01000000b 00100000b 00010000b 00001000b 00000100b 00000010b 00000001b
-q)sh first SameRow    / Positions of the same row as position 0
+    sh first SameRow    / Positions of the same row as position 0
 11111111b
 00000000b
 00000000b
@@ -159,7 +153,7 @@ q)sh first SameRow    / Positions of the same row as position 0
 00000000b
 00000000b
 00000000b
-q)sh first SameCol    /   and same rank.
+    sh first SameCol    /   and same rank.
 10000000b
 10000000b
 10000000b
@@ -168,7 +162,7 @@ q)sh first SameCol    /   and same rank.
 10000000b
 10000000b
 10000000b
-q)sh first attack[`R] /` rook at position 0 can attack all positions of same row or column.
+    sh first attack[`R] /` rook at position 0 can attack all positions of same row or column.
 11111111b
 10000000b
 10000000b
@@ -178,7 +172,6 @@ q)sh first attack[`R] /` rook at position 0 can attack all positions of same row
 10000000b
 10000000b
 ~~~
-
 
 It's also convenitent to know which row/colunm(the index) of each position. 
 
@@ -190,7 +183,7 @@ attacked by the opposite.
 So we need a mapping from position to row number, and column number
 
 ~~~q
-sh pos2Row          / Position to row number.
+    sh pos2Row          / Position to row number.
 0 0 0 0 0 0 0 0
 1 1 1 1 1 1 1 1
 2 2 2 2 2 2 2 2
@@ -199,7 +192,7 @@ sh pos2Row          / Position to row number.
 5 5 5 5 5 5 5 5
 6 6 6 6 6 6 6 6
 7 7 7 7 7 7 7 7
-q)sh pos2Col          / Position to column number
+    sh pos2Col          / Position to column number
 0 1 2 3 4 5 6 7
 0 1 2 3 4 5 6 7
 0 1 2 3 4 5 6 7
@@ -210,24 +203,22 @@ q)sh pos2Col          / Position to column number
 0 1 2 3 4 5 6 7
 ~~~
 
-
 diff function create a table t of count[x] by count[x], with t[i;j]: x[i] - x[j]
 
 ~~~q
-diff
+    show diff
 {x-/:\:x}
-q)diff 1 2 3 4
+    show diff 1 2 3 4
 0 -1 -2 -3
 1 0  -1 -2
 2 1  0  -1
 3 2  1  0 
 ~~~
 
-
 `diff pos2Row` gives us a 64X64 table t, with t[i;j] stores the row difference of position i, and j
 
 ~~~q
-sh first diff pos2Row       / row difference between position 0 and others.
+    sh first diff pos2Row       / row difference between position 0 and others.
 0  0  0  0  0  0  0  0 
 -1 -1 -1 -1 -1 -1 -1 -1
 -2 -2 -2 -2 -2 -2 -2 -2
@@ -238,10 +229,9 @@ sh first diff pos2Row       / row difference between position 0 and others.
 -7 -7 -7 -7 -7 -7 -7 -7
 ~~~
 
-
 and we take it's absolute value and compare with 2
 ~~~q
-sh first 2>abs diff pos2Row / positions with row difference to position 0 < 2
+    sh first 2>abs diff pos2Row / positions with row difference to position 0 < 2
 11111111b
 11111111b
 00000000b
@@ -251,13 +241,12 @@ sh first 2>abs diff pos2Row / positions with row difference to position 0 < 2
 00000000b
 00000000b
 ~~~
-
 
 and we do the same thing for column, and get King's attack positions at each positions.
 King can attack any positions that have row/column absolute difference < 2. 
 
 ~~~q
-sh first attack[`k] /`
+    sh first attack[`k] /` 
 11000000b
 11000000b
 00000000b
@@ -267,14 +256,13 @@ sh first attack[`k] /`
 00000000b
 00000000b
 ~~~
-
 
 for example, at position 0(A8), king can only move/attack to 3 positions A7, B8,B7 like above, plus position 0.
 
 ### Pawn attack: white pawn(P) attack up left and up right, so row-1, column+-1
 
 ~~~q
-sh last 1=diff pos2Row   / all positions in rank 2 are 1 row less than h1.
+    sh last 1=diff pos2Row   / all positions in rank 2 are 1 row less than h1. 
 00000000b
 00000000b
 00000000b
@@ -283,7 +271,7 @@ sh last 1=diff pos2Row   / all positions in rank 2 are 1 row less than h1.
 00000000b
 11111111b
 00000000b
-q)sh last 1=abs diff pos2Col   / file 7 is 1 column less than h1.
+    sh last 1=abs diff pos2Col   / file 7 is 1 column less than h1.
 00000010b
 00000010b
 00000010b
@@ -292,7 +280,7 @@ q)sh last 1=abs diff pos2Col   / file 7 is 1 column less than h1.
 00000010b
 00000010b
 00000010b
-q)sh first -2 # attack[`P] /`white pawn g1 attacks f2 and h2.
+    sh first -2 # attack[`P] /`white pawn g1 attacks f2 and h2.
 00000000b
 00000000b
 00000000b
@@ -301,7 +289,7 @@ q)sh first -2 # attack[`P] /`white pawn g1 attacks f2 and h2.
 00000000b
 00000101b
 00000000b
-q)sh first      attack[`p] /`black pawn a8 attacks b7
+    sh first      attack[`p] /`black pawn a8 attacks b7
 00000000b
 01000000b
 00000000b
@@ -312,15 +300,14 @@ q)sh first      attack[`p] /`black pawn a8 attacks b7
 00000000b
 ~~~
 
-
 ### Bishops and Queen move and attack in diagonals
 
 There are each 15 diagonals at goes down and up( read from left to right), we use -7 .. 7 to represent each. 
 a8 is at up diagonal 7, a7->b8 6
 
 ~~~q
-diagonal    : -7+til 15             ; / Diagonal are numbered from -7 to 7 for symetry.
-q)sh pos2Down / Each position have a right down diagonal,
+    diagonal    : -7+til 15             ; / Diagonal are numbered from -7 to 7 for symetry.
+    sh pos2Down / Each position have a right down diagonal,
 0  1  2  3  4  5  6  7
 -1 0  1  2  3  4  5  6
 -2 -1 0  1  2  3  4  5
@@ -329,7 +316,7 @@ q)sh pos2Down / Each position have a right down diagonal,
 -5 -4 -3 -2 -1 0  1  2
 -6 -5 -4 -3 -2 -1 0  1
 -7 -6 -5 -4 -3 -2 -1 0
-q)sh pos2Up   /   and a right up diagonal.
+    sh pos2Up   /   and a right up diagonal. 
 -7 -6 -5 -4 -3 -2 -1 0
 -6 -5 -4 -3 -2 -1 0  1
 -5 -4 -3 -2 -1 0  1  2
@@ -338,11 +325,9 @@ q)sh pos2Up   /   and a right up diagonal.
 -2 -1 0  1  2  3  4  5
 -1 0  1  2  3  4  5  6
 0  1  2  3  4  5  6  7
-q)diagonal where Pos2Up[48]  /A2 is at up diagonal -1
-,-1
-q)diagonal where Pos2Down[8] /A7 is at down diagonal -1
-,-1
-q)sh attack[`B]35 / `Bishop d4 attacks these positions.
+    diagonal where Pos2Up[48]  /A2 is at up diagonal -1 
+    diagonal where Pos2Down[8] /A7 is at down diagonal -1
+    sh attack[`B]35 / `Bishop d4 attacks these positions.
 00000001b
 10000010b
 01000100b
@@ -353,13 +338,11 @@ q)sh attack[`B]35 / `Bishop d4 attacks these positions.
 10000010b
 ~~~
 
-
 ### Knight move by (1,2) leap.(TODO)
 
 ## King mobility analysis.
 Given board like this:
 
-mdBoard board fen
 
 
 |A|B|C|D|E|F|G|H|
@@ -374,20 +357,20 @@ mdBoard board fen
 | | |♔| | | | | |
 
 
-q)
+
 ~~~q
 
-q)/ Given a chess board, return the positions attacked by all pieces of the same kind
-q)/ piece: sym. A single character symbol that represent a piece. e.g. R for white rook
-q)/ board: sym. A 64 character sym that describe a chess board with piece on it.
-q)/             A8 at board[0].
-q)/ return: All positions attacked all pieces designated by piece.
-q)Attack:{[piece; board]; any attack[piece] where board=piece}
-q)
-q)bd: `$/:raze bd; /turn chess board into 64 syms
-q)show bd
+    / Given a chess board, return the positions attacked by all pieces of the same kind
+    / piece: sym. A single character symbol that represent a piece. e.g. R for white rook
+    / board: sym. A 64 character sym that describe a chess board with piece on it. 
+    /             A8 at board[0].
+    / return: All positions attacked all pieces designated by piece.
+    Attack:{[piece; board]; any attack[piece] where board=piece}
+
+    bd: `$/:raze bd; /turn chess board into 64 syms
+    show bd
 ``````b```p````n```r````R```p`p`k``p``B`p`````B``p`````P```````P``P```P`P`P``..
-q)sh Attack[`R; bd]; /White rook attacks following pieces.(Blocking ignored)
+    sh Attack[`R; bd]; /White rook attacks following pieces.(Blocking ignored)
 00010000b
 00010000b
 11111111b
@@ -396,7 +379,7 @@ q)sh Attack[`R; bd]; /White rook attacks following pieces.(Blocking ignored)
 00010000b
 00010000b
 00010000b
-q)sh Attack[`B; bd]; /B attack
+    sh Attack[`B; bd]; /B attack 
 01000011b
 00100110b
 10011100b
@@ -405,7 +388,7 @@ q)sh Attack[`B; bd]; /B attack
 01110010b
 11001001b
 10000100b
-q)sh Attack[`P; bd]; /White pawns attack these positions
+    sh Attack[`P; bd]; /White pawns attack these positions 
 00000000b
 00000000b
 00000000b
@@ -414,7 +397,7 @@ q)sh Attack[`P; bd]; /White pawns attack these positions
 01011111b
 00000000b
 00000000b
-q)sh attacked: any `R`B`P Attack\:bd  /These positions attacked by all white pieces.
+    sh attacked: any `R`B`P Attack\:bd  /These positions attacked by all white pieces.
 01010011b
 00110110b
 11111111b
@@ -423,7 +406,7 @@ q)sh attacked: any `R`B`P Attack\:bd  /These positions attacked by all white pie
 01111111b
 11011001b
 10010100b
-q)sh Attack[`k; bd]; /where black king can move to.
+    sh Attack[`k; bd]; /where black king can move to.
 00000000b
 00000000b
 11000000b
@@ -432,7 +415,7 @@ q)sh Attack[`k; bd]; /where black king can move to.
 00000000b
 00000000b
 00000000b
-q)sh k:Attack[`k; bd] & not attacked; /`k cannot move to attacked positions.
+    sh k:Attack[`k; bd] & not attacked; /`k cannot move to attacked positions.
 00000000b
 00000000b
 00000000b
@@ -443,15 +426,14 @@ q)sh k:Attack[`k; bd] & not attacked; /`k cannot move to attacked positions.
 00000000b
 ~~~
 
-
 To solve the puzzle, we need to find a piece that can attack ememy's king and all of it's legal positions.
 
 ~~~q
-move: attack ; / most pieces move and attack the same way, except pawns.
-q)show B:where bd = `B /`B's positions are at e5(28), c4(34)
+    move: attack ; / most pieces move and attack the same way, except pawns.
+    show B:where bd = `B /`B's positions are at e5(28), c4(34)
 28 34
-q)ma: move[`B] I attack[`B] /White Bishop can attack these positions in 2 steps.
-q)sh first ma[B] /Be5 can attack these positions in 2 steps
+    ma: move[`B] I attack[`B] /White Bishop can attack these positions in 2 steps.
+    sh first ma[B] /Be5 can attack these positions in 2 steps
 01010101b
 10101010b
 01010101b
@@ -460,11 +442,9 @@ q)sh first ma[B] /Be5 can attack these positions in 2 steps
 10101010b
 01010101b
 10101010b
-q)all each k <=/: ma[B]  /and it covers all kings legal positions.
+    show all each k <=/: ma[B]  /and it covers all kings legal positions.
 10b
-q)where all each k<=/:ma[B] /first white bishop(e5) can attack all k's position in 2 steps.
+    show where all each k<=/:ma[B] /first white bishop(e5) can attack all k's position in 2 steps.
 ,0
-q)/ we ignored that when bishop e5 moves, it's need to be removed from the orinal attacked position.
+    / we ignored that when bishop e5 moves, it's need to be removed from the orinal attacked position.
 ~~~
-
-
