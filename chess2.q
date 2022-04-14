@@ -32,7 +32,7 @@ attack[`B]: attack[`b]: Same[Pos2Up] | Same Pos2Down;
 /anything below \ will be ignored by q
 
 \
-# Chess Puzzle Solver in Relational Mathematics.
+# Chess Puzzle Solver in Relational Mathematics(In Progress).
 
 
 ## Forsyth-Edwards(FEN) chess notation display

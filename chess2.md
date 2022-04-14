@@ -1,4 +1,4 @@
-# Chess Puzzle Solver in Relational Mathematics.
+# Chess Puzzle Solver in Relational Mathematics(In Progress).
 
 
 ## Forsyth-Edwards(FEN) chess notation display
